@@ -18,24 +18,13 @@ export function MemoryGame() {
   }
 
   function handleFlip(card) {
-    if (game.setCard(card.id)) {
-      if(game.secondCard){
-          if (game.checkMatch()){
-              game.clearCards();
-              if(game.checkGameOver()) {
-                setTimeout(() => {
-                  setGamerOver(true);
-                }, 300)
-              };
-          } else {
-              setTimeout(() => {
-                // No Macth
-                game.unflipCards();
-                setCards([...game.cards]);
-              }, 800);
-          };
-      }
-    }
+    game.flipCard(card.id, ()=>{
+      //gamerOverCallback
+      setGamerOver(true)
+    }, ()=>{
+      //noMatchCallback
+      setCards([...game.cards]);
+    });
     setCards([...game.cards])
   }
 
